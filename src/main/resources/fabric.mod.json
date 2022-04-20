@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "simplysnow",
   "version": "${version}",
 
-  "name": "Mod Name",
-  "description": "wow mod thats incredible i love mods!",
+  "name": "Simply Snow",
+  "description": "A plethora of snow improvements",
   "authors": [
     {
       "name": "SimplyCmd",
@@ -19,19 +19,19 @@
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/simplysnow/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplycmd.modid.Main"
+      "com.simplycmd.simplysnow.Main"
     ],
     "client": [
-      "com.simplycmd.modid.Main"
+      "com.simplycmd.simplysnow.Main"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "simplysnow.mixins.json"
   ],
 
   "depends": {
