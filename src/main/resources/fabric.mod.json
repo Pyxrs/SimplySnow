@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "modid",
+  "version": "${version}",
+
+  "name": "Mod Name",
+  "description": "wow mod thats incredible i love mods!",
+  "authors": [
+    {
+      "name": "SimplyCmd",
+      "contact": {
+        "homepage": "https://simplycmd.github.io/"
+      }
+    }
+  ],
+  "contact": {
+    "homepage": "https://simplycmd.github.io/",
+    "sources": "https://github.com/SimplyCmd/"
+  },
+
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplycmd.modid.Main"
+    ],
+    "client": [
+      "com.simplycmd.modid.Main"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+  }
+}
