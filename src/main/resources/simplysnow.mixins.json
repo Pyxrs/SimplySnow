@@ -4,6 +4,7 @@
   "package": "com.simplycmd.simplysnow.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "shared.SnowBlockMixin"
   ],
   "client": [
   ],

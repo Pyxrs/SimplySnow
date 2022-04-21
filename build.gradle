@@ -34,7 +34,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	include modImplementation("curse.maven:featherlib-525225:${project.featherlib_version}")
-	include modImplementation("net.devtech:arrp:${project.arrp_version}")
+	include modImplementation("net.devtech:arrp:0.5.7")
 
 	modRuntimeOnly ("supercoder79:databreaker:${databreaker_version}") {
 		exclude module: "fabric-loader"
