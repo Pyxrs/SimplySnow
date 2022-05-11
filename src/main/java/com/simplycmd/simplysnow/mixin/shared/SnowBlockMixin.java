@@ -18,10 +18,14 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.LightType;
+import net.minecraft.world.Heightmap;
 
 @Mixin(SnowBlock.class)
 public class SnowBlockMixin {
-    private static final int SNOW_STICKINESS = 1;
+    private static final int MIN_SNOW_STICKINESS = 1;
+    private static final int MIN_SNOW_ACCUMULATION = 1;
+    private static final int MAX_SNOW_STICKINESS = 3;
+    private static final int MAX_SNOW_ACCUMULATION = 2;
 
     /**
      * @author SimplyCmd
@@ -39,24 +43,26 @@ public class SnowBlockMixin {
             world.removeBlock(pos, false);
         }
 
-        //if (random.nextInt(16) == 0) {
-            if (Util.canIncreaseSnow(world, pos)) increaseLayer(world, pos);
-            doLeveling(pos, pos.offset(Direction.byId(random.nextInt(5) + 2)), state, world);
-        //}
+        if (random.nextInt(16) == 0) {
+            var ground = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos);
+            if (pos.equals(ground) && Util.canIncreaseSnow(world, pos)) 
+                for (int i = 0; i < random.nextInt(MIN_SNOW_ACCUMULATION, MAX_SNOW_ACCUMULATION); i++)
+                    increaseLayer(world, pos);
+            doLeveling(pos, pos.offset(Direction.byId(random.nextInt(5) + 2)), state, world, random);
+        }
     }
 
     /**
      * Handles snow physics
      */
-    private static void doLeveling(BlockPos originPos, BlockPos offsetPos, BlockState state, ServerWorld world) {
+    private static void doLeveling(BlockPos originPos, BlockPos offsetPos, BlockState state, ServerWorld world, Random random) {
         var originHeight = getLayers(world, originPos);
         var offsetHeight = getLayers(world, offsetPos);
-        if (offsetHeight + SNOW_STICKINESS < originHeight && increaseLayer(world, offsetPos)) decreaseBlockLayer(world, originPos);
+        if (offsetHeight + random.nextInt(MIN_SNOW_STICKINESS, MAX_SNOW_STICKINESS) < originHeight && increaseLayer(world, offsetPos)) decreaseBlockLayer(world, originPos);
     }
     
     private static Integer getLayers(ServerWorld world, BlockPos pos) {
-        if (Util.getBlock(world, pos) == Util.GetBlock.SNOW) return world.getBlockState(pos).get(SnowBlock.LAYERS);
-        else return 0;
+        return (Util.getBlock(world, pos) == Util.GetBlock.SNOW) ? world.getBlockState(pos).get(SnowBlock.LAYERS) : 0;
     }
 
     /**
